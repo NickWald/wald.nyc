@@ -537,7 +537,7 @@
 			<div class='container' >
 
 				<div class='section-header' data-aos='fade-up' >
-					<h2>sasda Me</h2>
+					<h2>Contact Me</h2>
 				</div>
 
 				<form class='contact-form' id='contact-form' action "/handlingform" method='post' data-toggle='validator' >
@@ -550,8 +550,8 @@
 
 							<div class='form-group' data-aos='fade-up' >
 								<div class='material-input' >
-									<input type='text' class='form-control' name='user_name' required>
-									<label>Name</label>
+									 <label for="name" id="name">Name<span class="required">*</span></label>
+									<input type='text' class='form-control' name="name" id="name"  value="" required>
 									<span class='border'></span>
 								</div>
 								<div class='help-block with-errors' ></div>
@@ -562,8 +562,8 @@
 
 							<div class='form-group' data-aos='fade-up' >
 								<div class='material-input' >
-									<input type='email' class='form-control' name='user_email' required>
-									<label>Email</label>
+									<label for="email" id="email">Email<span class="required">*</span></label>
+									<input type='text' class='form-control' name='email' id="name"  value="" required />
 									<span class='border'></span>
 								</div>
 								<div class='help-block with-errors' ></div>
@@ -576,8 +576,8 @@
 					<div class='form-group' data-aos='fade-up' >
 
 						<div class='material-input' >
-							<input type='text' class='form-control' name='user_subject' required>
-							<label>Subject</label>
+							<label for="subject" id="subject">Subject<span class="required">*</span></label>
+							<input type='text' class='form-control' name='subject' id="name"  value="" required />
 							<span class='border'></span>
 						</div>
 
@@ -587,8 +587,8 @@
 					<div class='form-group' data-aos='fade-up' >
 
 						<div class='material-input' >
-							<textarea class='form-control' rows='4' name='user_message' required></textarea>
-							<label>Message</label>
+							<label for="message" id="message">Message<span class="required">*</span></label>
+							<input type='text' class='form-control' name='message' id="name"  value="" required />
 							<span class='border'></span>
 						</div>
 
