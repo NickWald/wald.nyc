@@ -1,6 +1,6 @@
 /*==================================================
 
-	Resme vCard Template
+	Nick Wald CSS for Wald.NYC
 
 ----------------------------------------------------
 	List of Contents
@@ -28,37 +28,65 @@
 	General CSS
 ==================================================*/
 
-@font-face {
-    font-family:'SF Pro Display';
-    src: url('SF Pro Display Semibold Italic.woff') format('woff'),
-		url('SF Pro Display Semibold Italic.ttf') format('truetype'),
-		url('SF Pro Display Semibold Italic.otf') format('opentype'),
-		url('SF Pro Display Semibold Italic.svg#SF Pro Display Semibold Italic') format('svg');
-    font-weight: 600;
-    font-style: italic;
-    font-stretch: normal;
-    unicode-range: U+0020-00FE;
-}
-
-@font-face {
-    font-family:'SF Pro Display';
-    src: url('SF Pro Display Semibold.woff') format('woff'),
-		url('SF Pro Display Semibold.ttf') format('truetype'),
-		url('SF Pro Display Semibold.otf') format('opentype'),
-		url('SF Pro Display Semibold.svg#SF Pro Display Semibold') format('svg');
-    font-weight: 600;
+@font-face{
+	font-family: 'Product Sans';
+	src: url('/fonts/PS/R/product_sans_regular.eot');
+	src: url('/fonts/PS/R/product_sans_regular.eot?#iefix') format('embedded-opentype'),
+	     url('/fonts/PS/R/product_sans_regular.woff') format('woff'),
+	     url('/fonts/PS/R/product_sans_regular.ttf') format('truetype'),
+	     url('/fonts/PS/R/product_sans_regular.svg#webfont') format('svg');
+    font-weight: 400;
     font-style: normal;
     font-stretch: normal;
-    unicode-range: U+0020-00FE;
+    unicode-range: U+0020-2044;
+}
+
+@font-face{
+	font-family: 'Product Sans Bold';
+	src: url('/fonts/PS/B/product_sans_bold.eot');
+	src: url('/fonts/PS/B/product_sans_bold.eot?#iefix') format('embedded-opentype'),
+	     url('/fonts/PS/B/product_sans_bold.woff') format('woff'),
+	     url('/fonts/PS/B/product_sans_bold.ttf') format('truetype'),
+	     url('/fonts/PS/B/product_sans_bold.svg#webfont') format('svg');
+    font-weight: 700;
+    font-style: normal;
+    font-stretch: normal;
+    unicode-range: U+0020-2044;
+}
+
+@font-face{
+	font-family: 'Product Sans Italic';
+	src: url('/fonts/PS/I/product_sans_italic.eot');
+	src: url('/fonts/PS/I/product_sans_italic.eot?#iefix') format('embedded-opentype'),
+	     url('/fonts/PS/I/product_sans_italic.woff') format('woff'),
+	     url('/fonts/PS/I/product_sans_italic.ttf') format('truetype'),
+	     url('/fonts/PS/I/product_sans_italic.svg#webfont') format('svg');
+    font-weight: 400;
+    font-style: italic;
+    font-stretch: normal;
+    unicode-range: U+0020-2044;
+}
+
+@font-face{
+	font-family: 'Product Sans Bold Italic';
+	src: url('/fonts/PS/BI/product_sans_bold_italic.eot');
+	src: url('/fonts/PS/BI/product_sans_bold_italic.eot?#iefix') format('embedded-opentype'),
+	     url('/fonts/PS/BI/product_sans_bold_italic.woff') format('woff'),
+	     url('/fonts/PS/BI/product_sans_bold_italic.ttf') format('truetype'),
+	     url('/fonts/PS/BI/product_sans_bold_italic.svg#webfont') format('svg');
+    font-weight: 700;
+    font-style: italic;
+    font-stretch: normal;
+    unicode-range: U+0020-2044;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto+Mono:300,400,500,700');
 *{
-font-family: "SF Pro Display";
+font-family: "Product Sans";
 font-weight: 500;
 }
 body{
-font-family: "SF-Pro-Text-HeavyItalic"
+font-family: "Product Sans"
 	background:#F1F1F1;
 }
 .intro-info,
@@ -66,8 +94,9 @@ font-family: "SF-Pro-Text-HeavyItalic"
 .alert, footer .copyright,
 .project-content > p,
 .section-header > h2{
-	font-family: "SF-Pro-Text-HeavyItalic"
+	font-family: "Product Sans Italic"
 }
+
 img{
 	max-width:100%;
 }
@@ -91,7 +120,7 @@ img{
 	*display:inline;
 	*zoom:1;
 	letter-spacing:2px;
-  font-family: "SF-Pro-Text-HeavyItalic"
+  font-family: "Product Sans"
 }
 .section-header > h1:after{
 	content: ' ';
@@ -122,6 +151,7 @@ img{
 	*display:inline;
 	*zoom:1;
 	letter-spacing:2px;
+  font-family: "Product Sans Italic"
 }
 .section-header > h2:after{
 	content: ' ';
@@ -988,7 +1018,7 @@ footer .copyright{
 	Portfolio Single Page
 ==================================================*/
 .portfolio-single .main-section{
-	padding-top:270px;
+	padding-top:200px;
 }
 .project-slider{
 	position:relative;

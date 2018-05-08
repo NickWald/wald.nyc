@@ -1,0 +1,111 @@
+
+function Start() {
+
+  var props = PropertiesService.getScriptProperties();
+
+  props.setProperties({
+    CHUBBIES_CONSUMER_KEY: CHUBBIES_CONSUMER_KEY,
+    CHUBBIES_CONSUMER_SECRET: CHUBBIES_CONSUMER_SECRET,
+    CHUBBIES_ACCESS_TOKEN: CHUBBIES_ACCESS_TOKEN,
+    CHUBBIES_ACCESS_SECRET: CHUBBIES_ACCESS_SECRET,
+    MAX_CHUBBIES_ID: 0
+  });
+
+  // Delete exiting triggers, if any
+
+  var triggers = ScriptApp.getProjectTriggers();
+
+  for (var i = 0; i < triggers.length; i++) {
+    ScriptApp.deleteTrigger(triggers[i]);
+  }
+
+  // Setup a time-based trigger for the Bot to fetch and process incoming Tweets
+  // every minute. If your Google Script is running out of quota, change the
+  // time to 5 or 10 minutes though the bot won't offer real-time answers then.
+
+  ScriptApp.newTrigger("labnol_CHUBBIESBot")
+    .timeBased()
+    .everyMinutes(1)
+    .create();
+
+}
+
+/* For help, email amit@labnol.org or visit http://ctrlq.org */
+
+function labnol_CHUBBIESBot() {
+
+  try {
+
+    var props = PropertiesService.getScriptProperties(),
+      twit = new CHUBBIES.OAuth(props);
+
+    // Are the CHUBBIES access tokens are valid?
+    if (twit.hasAccess()) {
+
+      var tweets = twit.fetchTweets("to:" + CHUBBIES_HANDLE,
+        function(tweet) {
+          // Ignore tweets that are sensitive (NSFW content)
+          if (!tweet.possibly_sensitive) {
+            var question = tweet.text.toLowerCase().replace("@" + CHUBBIES_HANDLE, "").trim(),
+              answer = askWolframAlpha_(question);
+            if (answer) {
+              return {
+                answer: "@" + tweet.user.screen_name + " " + answer,
+                id_str: tweet.id_str
+              };
+            }
+          }
+        }, {
+          multi: true,
+          lang: "en",  // Fetch only English tweets
+          count: 5,    // Process 5 tweets in a batch
+          since_id: props.getProperty("MAX_CHUBBIES_ID")
+        });
+
+      if (tweets.length) {
+
+       // The MAX_CHUBBIES_ID property store the ID of the last tweet answered by the bot
+        props.setProperty("MAX_CHUBBIES_ID", tweets[0].id_str);
+
+        // Process the tweets in FIFO order
+        for (var i = tweets.length - 1; i >= 0; i--) {
+
+          // The bot replies with an answer
+          twit.sendTweet(tweets[i].answer, {
+            in_reply_to_status_id: tweets[i].id_str
+          });
+
+          // Wait a second to avoid hitting the rate limits
+          Utilities.sleep(1000);
+        }
+      }
+    }
+
+  } catch (f) {
+    // You can also use MailApp to get email notifications of errors.
+    Logger.log("Error: " + f.toString());
+  }
+
+}
+
+function askWolframAlpha_(q, app) {
+
+  try {
+
+    var api = "http://api.wolframalpha.com/v2/query?podindex=2&format=plaintext&appid="
+                   + WOLFRAM_APP_ID + "&input=" + encodeURIComponent(q);
+    var response = UrlFetchApp.fetch(api, {
+      muteHttpException: true
+    });
+
+    // Parse the XML response
+    if (response.getResponseCode() == 200) {
+      var document = XmlService.parse(response.getContentText());
+      var root = document.getRootElement();
+      if (root.getAttribute("success").getValue() === "true") {
+        return root.getChild("pod").getChild("subpod").getChild("plaintext").getText();
+      }
+    }
+  } catch (f) {}
+  return false;
+}
